@@ -895,6 +895,8 @@
                 console.log(\'Showing main application\');
                 document.getElementById(\'loginScreen\').classList.add(\'hidden\');
                 document.getElementById(\'appContainer\').classList.add(\'active\');
+                this.populateToolsGrid(); // Ensure dashboard tools are populated
+                this.loadTool(\'dashboard\'); // Explicitly load the dashboard view
             }
 
             logout() {
