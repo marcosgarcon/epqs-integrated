@@ -69,13 +69,23 @@
             z-index: 1000;
         }
 
-        .login-card {
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid var(--muted);
-            border-radius: var(--radius);
-            padding: 40px;
-            width: 100%;
-            max-width: 400px;
+        .login-screen.hidden {
+            display: none !important;
+        }
+
+        /* Main App Layout */
+        .app-container {
+            display: grid;
+            height: 100vh;
+            grid-template-columns: 280px 1fr;
+            grid-template-rows: auto 1fr;
+            gap: 0;
+            visibility: hidden; /* Hidden by default, shown by JS */
+        }
+
+        .app-container.active {
+            visibility: visible;
+        }-width: 400px;
             box-shadow: var(--shadow);
             text-align: center;
         }
@@ -883,7 +893,7 @@
 
             showApp() {
                 console.log(\'Showing main application\');
-                document.getElementById(\'loginScreen\').style.display = \'none\';
+                document.getElementById(\'loginScreen\').classList.add(\'hidden\');
                 document.getElementById(\'appContainer\').classList.add(\'active\');
             }
 
