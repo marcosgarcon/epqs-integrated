@@ -3,7 +3,7 @@
 # Script para publicar o projeto EPQS no GitHub Pages
 
 REPO_NAME="epqs-integrated"
-USERNAME="marcos-garcon" # Substitua pelo seu nome de usuário do GitHub
+USERNAME="marcosgarcon"
 
 echo "Configurando o repositório Git local..."
 git init
