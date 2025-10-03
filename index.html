@@ -7,15 +7,12 @@
     <meta name="description" content="Sistema completo de ferramentas para engenharia de processos, qualidade e estatística">
     <meta name="theme-color" content="#0b1020">
     
-    <!-- PWA Manifest -->
     <link rel="manifest" href="manifest.json">
     
-    <!-- Icons -->
     <link rel="icon" type="image/png" sizes="32x32" href="icons/icon-32x32.png">
     <link rel="icon" type="image/png" sizes="192x192" href="icons/icon-192x192.png">
     <link rel="apple-touch-icon" href="icons/icon-192x192.png">
     
-    <!-- External Dependencies -->
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-annotation/dist/chartjs-plugin-annotation.min.js"></script>
@@ -62,10 +59,15 @@
             width: 100%;
             height: 100%;
             background: linear-gradient(120deg, #0b1020, #0a1328);
-            display: flex;
+            display: flex; /* O login-screen é sempre flex quando visível */
             align-items: center;
             justify-content: center;
             z-index: 1000;
+        }
+
+        /* CORREÇÃO CRÍTICA AQUI: Garante que a tela de login desapareça */
+        .login-screen.hidden {
+            display: none !important; 
         }
 
         .login-card {
@@ -248,10 +250,6 @@
             color: #e2e8f0;
         }
 
-        .menu-item i {
-            font-size: 16px;
-        }
-
         .menu-category {
             margin-top: 20px;
             margin-bottom: 8px;
@@ -427,6 +425,142 @@
     </style>
 </head>
 <body>
+    <div class="login-screen" id="loginScreen">
+        <div class="login-card">
+            <h1>Eng Process Quality and Statistics</h1>
+            <p class="subtitle">Sistema Integrado de Ferramentas</p>
+            <p class="dev-credit">Desenvolvido por Marcos Garçon</p>
+            
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="username">Usuário</label>
+                    <input type="text" id="username" name="username" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="password">Senha</label>
+                    <input type="password" id="password" name="password" required>
+                </div>
+                
+                <button type="submit" class="btn primary">Entrar</button>
+            </form>
+            
+            <div style="margin-top: 20px; font-size: 12px; color: #64748b;">
+                <p>Usuário padrão: <strong>admin</strong></p>
+                <p>Senha padrão: <strong>admin123</strong></p>
+            </div>
+        </div>
+    </div>
+    
+    ```
+        <div class="app-container" id="appContainer">
+        <header>
+            <div class="header-title">
+                <h1>Eng Process Quality and Statistics</h1>
+                <p class="subtitle">Sistema Integrado de Ferramentas</p>
+                <p class="dev-credit">Desenvolvido por Marcos Garçon</p>
+            </div>
+            <div class="header-actions">
+                <button class="btn" id="mobileMenuBtn" style="display: none;"> 
+                    <i class="ph ph-list"></i>
+                </button>
+                <button class="btn" id="exportBtn">
+                    <i class="ph ph-download"></i> Exportar
+                </button>
+                <button class="btn" id="settingsBtn">
+                    <i class="ph ph-gear"></i> Configurações
+                </button>
+                <button class="btn" id="logoutBtn">
+                    <i class="ph ph-sign-out"></i> Sair
+                </button>
+            </div>
+        </header>
+
+        <div class="sidebar" id="sidebar">
+            <div class="menu">
+                <div class="menu-item active" data-tool="dashboard">
+                    <i class="ph ph-house"></i>
+                    <span>Dashboard</span>
+                </div>
+                
+                <div class="menu-item" data-tool="reports-dashboard">
+                    <i class="ph ph-chart-pie"></i>
+                    <span>Dashboard de Indicadores</span>
+                </div>
+                
+                <div class="menu-item" data-tool="external-integration">
+                    <i class="ph ph-link"></i>
+                    <span>Integração Externa</span>
+                </div>
+                
+                <div class="menu-category">Estatística & Qualidade</div>
+                
+                <div class="menu-item" data-tool="histogram-builder">
+                    <i class="ph ph-chart-bar"></i>
+                    <span>Histograma & SPC</span>
+                </div>
+                
+                <div class="menu-item" data-tool="doe-calculator">
+                    <i class="ph ph-grid-four"></i>
+                    <span>DOE & Planejamento</span>
+                </div>
+                
+                <div class="menu-item" data-tool="fmea-manager">
+                    <i class="ph ph-bug"></i>
+                    <span>FMEA e RPN</span>
+                </div>
+                
+                <div class="menu-category">Ferramentas de Processo</div>
+                
+                <div class="menu-item" data-tool="workflow-editor">
+                    <i class="ph ph-flow-chart"></i>
+                    <span>Editor de Fluxo</span>
+                </div>
+                
+                <div class="menu-item" data-tool="time-study">
+                    <i class="ph ph-timer"></i>
+                    <span>Estudo de Tempos</span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="main-content">
+            <div class="dashboard">
+                <h2>Bem-vindo ao Sistema EPQS</h2>
+                <p style="color: var(--accent2); margin-bottom: 24px;">Visão geral das principais ferramentas e indicadores.</p>
+
+                <div class="dashboard-grid">
+                    <div class="dashboard-card">
+                        <h3>Próxima Análise Crítica</h3>
+                        <p>Realizar Análise de Capacidade (CpK) na Linha 3 até 15/10/2025.</p>
+                    </div>
+                    <div class="dashboard-card">
+                        <h3>Alertas de Qualidade</h3>
+                        <p style="color: var(--warn); font-weight: 600;">3 Processos Fora de Controle (Gráfico de Controle).</p>
+                    </div>
+                </div>
+
+                <h3 style="color: var(--accent);">Acesso Rápido às Ferramentas</h3>
+                <div class="tools-grid">
+                    <div class="tool-card" data-tool="histogram-builder">
+                        <h4>Histograma & SPC</h4>
+                        <p>Visualize a distribuição dos dados e monitore a estabilidade do processo.</p>
+                    </div>
+                    <div class="tool-card" data-tool="fmea-manager">
+                        <h4>FMEA e RPN</h4>
+                        <p>Gerencie modos de falha e calcule o Número de Prioridade de Risco (RPN).</p>
+                    </div>
+                    <div class="tool-card" data-tool="reports-dashboard">
+                        <h4>Dashboard de Indicadores</h4>
+                        <p>Acompanhe OEE, Scrap, Eficiência e outros KPIs em tempo real.</p>
+                    </div>
+                </div>
+            </div>
+
+            <iframe class="tool-frame hidden"></iframe> 
+        </div>
+    </div>
+
     <script>
     // --- Variáveis e Configurações ---
     const LOGIN_USER = 'admin';
@@ -470,13 +604,15 @@
      */
     function toggleAppView(loggedIn) {
         if (loggedIn) {
-            loginScreen.classList.add('hidden');
+            // Usa a classe .hidden que agora está configurada no CSS para display: none
+            loginScreen.classList.add('hidden'); 
             appContainer.classList.add('active');
             localStorage.setItem('isAuthenticated', 'true');
             showNotification('Login realizado com sucesso!', 'success');
         } else {
             appContainer.classList.remove('active');
-            loginScreen.classList.remove('hidden');
+            // Remove a classe .hidden para mostrar a tela de login novamente
+            loginScreen.classList.remove('hidden'); 
             localStorage.removeItem('isAuthenticated');
             showNotification('Sessão encerrada.', 'info');
         }
@@ -485,38 +621,47 @@
     // --- Event Handlers (Tratadores de Eventos) ---
 
     // 1. Lógica de Login
-    loginForm.addEventListener('submit', (e) => {
-        e.preventDefault(); // Impede o envio padrão do formulário
+    if (loginForm) {
+        loginForm.addEventListener('submit', (e) => {
+            e.preventDefault(); // Impede o envio padrão do formulário
 
-        const usernameInput = document.getElementById('username').value;
-        const passwordInput = document.getElementById('password').value;
+            const usernameInput = document.getElementById('username').value;
+            const passwordInput = document.getElementById('password').value;
 
-        if (usernameInput === LOGIN_USER && passwordInput === LOGIN_PASS) {
-            toggleAppView(true);
-        } else {
-            showNotification('Usuário ou senha incorretos.', 'error');
-        }
-    });
+            if (usernameInput === LOGIN_USER && passwordInput === LOGIN_PASS) {
+                toggleAppView(true);
+            } else {
+                showNotification('Usuário ou senha incorretos.', 'error');
+            }
+        });
+    }
+
 
     // 2. Lógica de Logout
-    logoutBtn.addEventListener('click', () => {
-        toggleAppView(false);
-    });
+    if (logoutBtn) {
+        logoutBtn.addEventListener('click', () => {
+            toggleAppView(false);
+        });
+    }
+
 
     // 3. Verificação de Sessão (para recarregar a página e manter logado)
     document.addEventListener('DOMContentLoaded', () => {
         if (localStorage.getItem('isAuthenticated') === 'true') {
+            // Se autenticado, força a visualização do aplicativo ao carregar
             toggleAppView(true);
+        } else {
+             // Garante que o container da aplicação está oculto se não estiver logado
+             appContainer.classList.remove('active');
+             // Garante que a tela de login está visível
+             loginScreen.classList.remove('hidden');
         }
     });
     
     // 4. Lógica do Menu Mobile (para dispositivos móveis)
     if (mobileMenuBtn) {
-        mobileMenuBtn.style.display = 'block'; // Mostra o botão no mobile
-
         mobileMenuBtn.addEventListener('click', () => {
             sidebar.classList.toggle('mobile-open');
-            // Cria um overlay temporário (não implementado no seu HTML, mas boa prática)
         });
     }
 
@@ -527,12 +672,13 @@
             document.querySelectorAll('.menu-item').forEach(i => i.classList.remove('active'));
             // Adiciona 'active' ao clicado
             e.currentTarget.classList.add('active');
+            
             // Oculta a sidebar no mobile após a seleção
             if (window.innerWidth <= 768) {
                 sidebar.classList.remove('mobile-open');
             }
-            // Adicionar aqui a lógica para carregar o conteúdo da ferramenta (iframe ou div)
-            // Por enquanto, apenas garante que o dashboard é visível se a ferramenta for 'dashboard'
+            
+            // Lógica de carregamento de conteúdo (Dashboard vs. iframe)
             const toolName = e.currentTarget.getAttribute('data-tool');
             const dashboard = document.querySelector('.dashboard');
             const toolFrame = document.querySelector('.tool-frame');
@@ -540,86 +686,36 @@
             if (toolName === 'dashboard') {
                 dashboard.classList.remove('hidden');
                 toolFrame.classList.add('hidden');
+                toolFrame.src = ''; // Limpa o iframe quando volta ao dashboard
             } else {
                 dashboard.classList.add('hidden');
                 toolFrame.classList.remove('hidden');
-                // Aqui você definiria o src do iframe: toolFrame.src = `${toolName}.html`;
+                // Adicione a lógica para carregar o conteúdo da ferramenta aqui (ex: toolFrame.src = `${toolName}.html`;)
             }
         });
     });
 
-    // 6. Configuração inicial da visualização
-    document.querySelector('.tool-frame').classList.add('hidden'); // Inicialmente esconde o iframe
+    // 6. Configuração inicial da visualização (garante que o iframe está oculto ao iniciar)
+    const initialToolFrame = document.querySelector('.tool-frame');
+    if (initialToolFrame) {
+        initialToolFrame.classList.add('hidden'); 
+    }
+
+    // 7. Tratamento de clique nos cards do Dashboard (atalhos)
+    document.querySelectorAll('.tool-card').forEach(card => {
+        card.addEventListener('click', (e) => {
+            const toolName = e.currentTarget.getAttribute('data-tool');
+            
+            // Simula o clique no item do menu correspondente
+            const correspondingMenuItem = document.querySelector(`.menu-item[data-tool="${toolName}"]`);
+            if (correspondingMenuItem) {
+                correspondingMenuItem.click();
+            }
+        });
+    });
+
     </script>
+</body>
+</html>
+
     
-    <!-- Login Screen -->
-    <div class="login-screen" id="loginScreen">
-        <div class="login-card">
-            <h1>Eng Process Quality and Statistics</h1>
-            <p class="subtitle">Sistema Integrado de Ferramentas</p>
-            <p class="dev-credit">Desenvolvido por Marcos Garçon</p>
-            
-            <form id="loginForm">
-                <div class="form-group">
-                    <label for="username">Usuário</label>
-                    <input type="text" id="username" name="username" required>
-                </div>
-                
-                <div class="form-group">
-                    <label for="password">Senha</label>
-                    <input type="password" id="password" name="password" required>
-                </div>
-                
-                <button type="submit" class="btn primary">Entrar</button>
-            </form>
-            
-            <div style="margin-top: 20px; font-size: 12px; color: #64748b;">
-                <p>Usuário padrão: <strong>admin</strong></p>
-                <p>Senha padrão: <strong>admin123</strong></p>
-            </div>
-        </div>
-    </div>
-
-    <!-- Main Application -->
-    <div class="app-container" id="appContainer">
-        <!-- Header -->
-        <header>
-            <div class="header-title">
-                <h1>Eng Process Quality and Statistics</h1>
-                <p class="subtitle">Sistema Integrado de Ferramentas</p>
-                <p class="dev-credit">Desenvolvido por Marcos Garçon</p>
-            </div>
-            <div class="header-actions">
-                <button class="btn" id="mobileMenuBtn" style="display: none;">
-                    <i class="ph ph-list"></i>
-                </button>
-                <button class="btn" id="exportBtn">
-                    <i class="ph ph-download"></i> Exportar
-                </button>
-                <button class="btn" id="settingsBtn">
-                    <i class="ph ph-gear"></i> Configurações
-                </button>
-                <button class="btn" id="logoutBtn">
-                    <i class="ph ph-sign-out"></i> Sair
-                </button>
-            </div>
-        </header>
-
-        <!-- Sidebar -->
-        <div class="sidebar" id="sidebar">
-            <div class="menu">
-                <div class="menu-item active" data-tool="dashboard">
-                    <i class="ph ph-house"></i>
-                    <span>Dashboard</span>
-                </div>
-                
-                <div class="menu-item" data-tool="reports-dashboard">
-                    <i class="ph ph-chart-pie"></i>
-                    <span>Dashboard de Indicadores</span>
-                </div>
-                
-                <div class="menu-item" data-tool="external-integration">
-                    <i class="ph ph-link"></i>
-                    <span>Integração Externa</span>
-                </div>
-                
