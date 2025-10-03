@@ -427,6 +427,131 @@
     </style>
 </head>
 <body>
+    <script>
+    // --- Variáveis e Configurações ---
+    const LOGIN_USER = 'admin';
+    const LOGIN_PASS = 'admin123';
+    
+    const loginScreen = document.getElementById('loginScreen');
+    const appContainer = document.getElementById('appContainer');
+    const loginForm = document.getElementById('loginForm');
+    const logoutBtn = document.getElementById('logoutBtn');
+    const sidebar = document.getElementById('sidebar');
+    const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+    
+    // --- Funções Auxiliares ---
+
+    /**
+     * Exibe uma notificação temporária.
+     * @param {string} message - A mensagem a ser exibida.
+     * @param {('success'|'error'|'info')} type - O tipo de notificação.
+     */
+    function showNotification(message, type = 'info') {
+        let notification = document.createElement('div');
+        notification.className = `notification ${type}`;
+        notification.innerHTML = `<p style="margin:0; font-weight: 600; color: var(--text);">${message}</p>`;
+        document.body.appendChild(notification);
+
+        setTimeout(() => {
+            notification.classList.add('show');
+        }, 10);
+
+        setTimeout(() => {
+            notification.classList.remove('show');
+            setTimeout(() => {
+                document.body.removeChild(notification);
+            }, 500);
+        }, 3000);
+    }
+
+    /**
+     * Alterna a visualização entre tela de login e aplicativo principal.
+     * @param {boolean} loggedIn - true se o login for bem-sucedido, false para logout.
+     */
+    function toggleAppView(loggedIn) {
+        if (loggedIn) {
+            loginScreen.classList.add('hidden');
+            appContainer.classList.add('active');
+            localStorage.setItem('isAuthenticated', 'true');
+            showNotification('Login realizado com sucesso!', 'success');
+        } else {
+            appContainer.classList.remove('active');
+            loginScreen.classList.remove('hidden');
+            localStorage.removeItem('isAuthenticated');
+            showNotification('Sessão encerrada.', 'info');
+        }
+    }
+
+    // --- Event Handlers (Tratadores de Eventos) ---
+
+    // 1. Lógica de Login
+    loginForm.addEventListener('submit', (e) => {
+        e.preventDefault(); // Impede o envio padrão do formulário
+
+        const usernameInput = document.getElementById('username').value;
+        const passwordInput = document.getElementById('password').value;
+
+        if (usernameInput === LOGIN_USER && passwordInput === LOGIN_PASS) {
+            toggleAppView(true);
+        } else {
+            showNotification('Usuário ou senha incorretos.', 'error');
+        }
+    });
+
+    // 2. Lógica de Logout
+    logoutBtn.addEventListener('click', () => {
+        toggleAppView(false);
+    });
+
+    // 3. Verificação de Sessão (para recarregar a página e manter logado)
+    document.addEventListener('DOMContentLoaded', () => {
+        if (localStorage.getItem('isAuthenticated') === 'true') {
+            toggleAppView(true);
+        }
+    });
+    
+    // 4. Lógica do Menu Mobile (para dispositivos móveis)
+    if (mobileMenuBtn) {
+        mobileMenuBtn.style.display = 'block'; // Mostra o botão no mobile
+
+        mobileMenuBtn.addEventListener('click', () => {
+            sidebar.classList.toggle('mobile-open');
+            // Cria um overlay temporário (não implementado no seu HTML, mas boa prática)
+        });
+    }
+
+    // 5. Tratamento de Seleção do Menu (para o clique nos itens)
+    document.querySelectorAll('.menu-item').forEach(item => {
+        item.addEventListener('click', (e) => {
+            // Remove 'active' de todos
+            document.querySelectorAll('.menu-item').forEach(i => i.classList.remove('active'));
+            // Adiciona 'active' ao clicado
+            e.currentTarget.classList.add('active');
+            // Oculta a sidebar no mobile após a seleção
+            if (window.innerWidth <= 768) {
+                sidebar.classList.remove('mobile-open');
+            }
+            // Adicionar aqui a lógica para carregar o conteúdo da ferramenta (iframe ou div)
+            // Por enquanto, apenas garante que o dashboard é visível se a ferramenta for 'dashboard'
+            const toolName = e.currentTarget.getAttribute('data-tool');
+            const dashboard = document.querySelector('.dashboard');
+            const toolFrame = document.querySelector('.tool-frame');
+
+            if (toolName === 'dashboard') {
+                dashboard.classList.remove('hidden');
+                toolFrame.classList.add('hidden');
+            } else {
+                dashboard.classList.add('hidden');
+                toolFrame.classList.remove('hidden');
+                // Aqui você definiria o src do iframe: toolFrame.src = `${toolName}.html`;
+            }
+        });
+    });
+
+    // 6. Configuração inicial da visualização
+    document.querySelector('.tool-frame').classList.add('hidden'); // Inicialmente esconde o iframe
+    </script>
+    
     <!-- Login Screen -->
     <div class="login-screen" id="loginScreen">
         <div class="login-card">
