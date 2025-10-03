@@ -57,20 +57,7 @@
 
         /* Login Screen */
         .login-screen {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(120deg, #0b1020, #0a1328);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 1000;
-        }
-
-        .login-screen.hidden {
-            display: none !important;
+            display: none !important; /* Temporarily hide login screen */
         }
 
         /* Main App Layout */
@@ -80,7 +67,7 @@
             grid-template-columns: 280px 1fr;
             grid-template-rows: auto 1fr;
             gap: 0;
-            visibility: hidden; /* Hidden by default, shown by JS */
+            visibility: visible; /* Always visible for testing */
         }
 
         .app-container.active {
@@ -779,9 +766,10 @@
         class EPQSApp {
             constructor() {
                 this.currentTool = null;
-                this.isLoggedIn = false;
+                this.isLoggedIn = true; // Assume logged in for testing
                 this.tools = this.initializeTools();
                 this.init();
+                this.showApp(); // Directly show app
             }
 
             initializeTools() {
@@ -825,7 +813,7 @@
             init() {
                 this.setupEventListeners();
                 this.populateToolsGrid();
-                this.checkLoginStatus();
+                // this.checkLoginStatus(); // Temporarily disable login check
             }
 
             setupEventListeners() {
