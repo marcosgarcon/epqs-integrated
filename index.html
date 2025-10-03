@@ -873,16 +873,18 @@
             }
 
             checkLoginStatus() {
-                const loggedIn = localStorage.getItem('epqs_logged_in');
-                if (loggedIn === 'true') {
+                const loggedIn = localStorage.getItem(\'epqs_logged_in\');
+                console.log(\'Login status check: loggedIn = \', loggedIn);
+                if (loggedIn === \'true\') {
                     this.isLoggedIn = true;
                     this.showApp();
                 }
             }
 
             showApp() {
-                document.getElementById('loginScreen').style.display = 'none';
-                document.getElementById('appContainer').classList.add('active');
+                console.log(\'Showing main application\');
+                document.getElementById(\'loginScreen\').style.display = \'none\';
+                document.getElementById(\'appContainer\').classList.add(\'active\');
             }
 
             logout() {
